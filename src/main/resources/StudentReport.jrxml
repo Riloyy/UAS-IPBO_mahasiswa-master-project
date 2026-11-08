@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="StudentReport"
+              pageWidth="595" pageHeight="842" columnWidth="515"
+              leftMargin="40" rightMargin="40" topMargin="34" bottomMargin="30"
+              whenNoDataType="AllSectionsNoDetail">
+
+    <parameter name="LOGO_IMG" class="java.awt.Image" isForPrompting="false"/>
+    <parameter name="NIM_AWAL" class="java.lang.String" isForPrompting="false"/>
+    <parameter name="NIM_AKHIR" class="java.lang.String" isForPrompting="false"/>
+
+    <field name="nim" class="java.lang.String"/>
+    <field name="nama" class="java.lang.String"/>
+
+    <title>
+        <band height="132">
+            <image scaleImage="RetainShape" hAlign="Left" vAlign="Middle" isUsingCache="true">
+                <reportElement x="0" y="10" width="72" height="72"/>
+                <imageExpression><![CDATA[$P{LOGO_IMG}]]></imageExpression>
+            </image>
+            <staticText>
+                <reportElement x="84" y="12" width="431" height="30" forecolor="#0D2038"/>
+                <textElement>
+                    <font size="22" isBold="true"/>
+                </textElement>
+                <text><![CDATA[UNIVERSITAS BUDI LUHUR]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="84" y="44" width="431" height="18" forecolor="#6E7B8A"/>
+                <textElement>
+                    <font size="12"/>
+                </textElement>
+                <text><![CDATA[Aplikasi Manajemen Data Mahasiswa]]></text>
+            </staticText>
+            <line>
+                <reportElement x="0" y="78" width="515" height="1" forecolor="#0D2038"/>
+            </line>
+            <staticText>
+                <reportElement x="0" y="88" width="255" height="20" forecolor="#0D2038"/>
+                <textElement>
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Laporan Data Mahasiswa]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true" evaluationTime="Now">
+                <reportElement x="255" y="88" width="260" height="20" forecolor="#6E7B8A"/>
+                <textElement textAlignment="Right">
+                    <font size="11"/>
+                </textElement>
+                <textFieldExpression><![CDATA["NIM: " + $P{NIM_AWAL} + " s/d " + $P{NIM_AKHIR}]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement x="0" y="108" width="515" height="18" forecolor="#6E7B8A"/>
+                <textElement>
+                    <font size="11"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Total: " + String.valueOf($V{REPORT_COUNT}) + " mahasiswa dalam rentang ini"]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="28">
+            <rectangle>
+                <reportElement x="0" y="0" width="515" height="24" backcolor="#0D2038"/>
+            </rectangle>
+            <staticText>
+                <reportElement x="10" y="2" width="130" height="20" forecolor="#FFFFFF"/>
+                <textElement>
+                    <font size="11" isBold="true"/>
+                </textElement>
+                <text><![CDATA[NIM]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="150" y="2" width="355" height="20" forecolor="#FFFFFF"/>
+                <textElement>
+                    <font size="11" isBold="true"/>
+                </textElement>
+                <text><![CDATA[NAMA MAHASISWA]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="26">
+            <rectangle>
+                <reportElement x="0" y="0" width="515" height="26" backcolor="#FFFFFF">
+                    <printWhenExpression><![CDATA[new java.lang.Boolean($V{REPORT_COUNT}.intValue() % 2 != 0)]]></printWhenExpression>
+                </reportElement>
+                <graphicElement>
+                    <pen lineWidth="0.5" lineColor="#B9C9D6"/>
+                </graphicElement>
+            </rectangle>
+            <rectangle>
+                <reportElement x="0" y="0" width="515" height="26" backcolor="#EDF7F2">
+                    <printWhenExpression><![CDATA[new java.lang.Boolean($V{REPORT_COUNT}.intValue() % 2 == 0)]]></printWhenExpression>
+                </reportElement>
+                <graphicElement>
+                    <pen lineWidth="0.5" lineColor="#B9C9D6"/>
+                </graphicElement>
+            </rectangle>
+            <textField isBlankWhenNull="true">
+                <reportElement x="10" y="0" width="130" height="26" forecolor="#0D2038"/>
+                <textElement>
+                    <font size="11"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{nim}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="150" y="0" width="355" height="26" forecolor="#22333B"/>
+                <textElement>
+                    <font size="11"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+    <pageFooter>
+        <band height="28">
+            <line>
+                <reportElement x="0" y="0" width="515" height="1" forecolor="#B9C9D6"/>
+            </line>
+            <staticText>
+                <reportElement x="0" y="7" width="300" height="16" forecolor="#6E7B8A"/>
+                <textElement>
+                    <font size="9"/>
+                </textElement>
+                <text><![CDATA[Universitas Budi Luhur - Aplikasi Manajemen Data Mahasiswa]]></text>
+            </staticText>
+            <textField evaluationTime="Now">
+                <reportElement x="330" y="7" width="160" height="16" forecolor="#6E7B8A"/>
+                <textElement textAlignment="Right">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " of"]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement x="494" y="7" width="21" height="16" forecolor="#6E7B8A"/>
+                <textElement>
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[String.valueOf($V{PAGE_NUMBER})]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+</jasperReport>
